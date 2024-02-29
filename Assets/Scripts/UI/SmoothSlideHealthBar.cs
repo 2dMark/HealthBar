@@ -1,35 +1,28 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class SmoothSlideHealthBar : MonoBehaviour
+public class SmoothSlideHealthBar : SlideHealthBar
 {
-    [SerializeField] private Health _health;
-    [SerializeField] private Slider _slider;
-    [SerializeField] private float _smoothSlideDelta = 0.5f;
+    [SerializeField, Min(.1f)] private float _smoothSlideDelta = 0.5f;
 
-    private void Start()
+    private Coroutine _coroutine;
+
+    protected override void RefreshData()
     {
-        _health.AmountChanged += RefreshData;
-        _slider.minValue = 0;
-        _slider.maxValue = _health.MaxHealthAmount;
-        _slider.value = _health.HealthAmount;
+        if (_coroutine != null)
+            StopCoroutine(_coroutine);
+
+        _coroutine = StartCoroutine(SmoothChangeSliderValue(_health.Amount));
     }
 
-    private void OnDisable()
+    private IEnumerator SmoothChangeSliderValue(float target)
     {
-        _health.AmountChanged -= RefreshData;
+        target /= _health.MaxAmount;
 
-        StopCoroutine(SmoothChangeSliderValue());
-    }
-
-    private void RefreshData() => StartCoroutine(SmoothChangeSliderValue());
-
-    private IEnumerator SmoothChangeSliderValue()
-    {
-        while (_slider.value != _health.HealthAmount)
+        while (_slider.value != target)
         {
-            _slider.value = Mathf.MoveTowards(_slider.value, _health.HealthAmount, _smoothSlideDelta * Time.deltaTime);
+            _slider.value = Mathf.MoveTowards
+                (_slider.value, target, _smoothSlideDelta * Time.deltaTime);
 
             yield return null;
         }

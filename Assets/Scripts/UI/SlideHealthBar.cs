@@ -1,24 +1,10 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SlideHealthBar : MonoBehaviour
+public class SlideHealthBar : TextHealthBar
 {
-    [SerializeField] private Health _health;
-    [SerializeField] private Slider _slider;
+    [SerializeField] protected Slider _slider;
 
-    private void Start()
-    {
-        _health.AmountChanged += RefreshData;
-        _slider.minValue = 0;
-        _slider.maxValue = _health.MaxHealthAmount;
-
-        RefreshData();
-    }
-
-    private void OnDisable()
-    {
-        _health.AmountChanged -= RefreshData;
-    }
-
-    private void RefreshData() => _slider.value = _health.HealthAmount;
+    protected override void RefreshData() =>
+        _slider.value = _health.Amount / _health.MaxAmount;
 }

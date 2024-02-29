@@ -3,20 +3,29 @@ using UnityEngine;
 
 public class TextHealthBar : MonoBehaviour
 {
-    [SerializeField] private Health _health;
-    [SerializeField] private TMP_Text _text;
+    [SerializeField] protected Health _health;
+    [SerializeField] protected TMP_Text _text;
 
-    private void Start()
+    protected virtual void Awake()
     {
-        _health.AmountChanged += RefreshData;
-
         RefreshData();
     }
 
-    private void OnDisable()
+    protected virtual void OnEnable()
+    {
+        _health.AmountChanged += RefreshData;
+    }
+
+    protected virtual void OnDisable()
     {
         _health.AmountChanged -= RefreshData;
     }
 
-    private void RefreshData() => _text.text = $"< {_health.HealthAmount} / {_health.MaxHealthAmount} >";
+    protected virtual void RefreshData()
+    {
+        if (_health.IsAlive)
+            _text.text = $"< {_health.Amount} / {_health.MaxAmount} >";
+        else
+            _text.text = $"< Dead >";
+    }
 }

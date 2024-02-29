@@ -152,8 +152,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8cc76ef4f4f40e47a36923beab1f86b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _amount: 80
-  _maxAmount: 100
+  _amount: 10
+  _maxAmount: 50
 --- !u!4 &109466745
 Transform:
   m_ObjectHideFlags: 0
@@ -941,6 +941,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _health: {fileID: 109466744}
+  _text: {fileID: 0}
   _slider: {fileID: 324849978}
 --- !u!114 &1153202362
 MonoBehaviour:
@@ -955,8 +956,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _health: {fileID: 109466744}
+  _text: {fileID: 0}
   _slider: {fileID: 709182513}
-  _smoothSlideDelta: 5
+  _smoothSlideDelta: 0.5
 --- !u!1 &1263793942
 GameObject:
   m_ObjectHideFlags: 0
@@ -1532,12 +1534,12 @@ MonoBehaviour:
       - m_Target: {fileID: 109466744}
         m_TargetAssemblyTypeName: Health, Assembly-CSharp
         m_MethodName: Heal
-        m_Mode: 3
+        m_Mode: 4
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 5
-          m_FloatArgument: 0
+          m_FloatArgument: 5
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
@@ -1666,12 +1668,12 @@ MonoBehaviour:
       - m_Target: {fileID: 109466744}
         m_TargetAssemblyTypeName: Health, Assembly-CSharp
         m_MethodName: TakeDamage
-        m_Mode: 3
+        m_Mode: 4
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 5
-          m_FloatArgument: 0
+          m_FloatArgument: 5
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
